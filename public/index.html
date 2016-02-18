@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Puzzle Game</title>
+    <link rel="stylesheet" href="libs/bootstrap-3.3.5-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src='libs/Knockout-3.3.0/knockout-3.3.0.js'></script>
+    <script src='libs/jquery-2.1.4.js'></script>
+    <!--<script type="text/javascript" src='libs/paper/paper-full.js'></script>-->
+    <!--<script type="text/javascript" src='libs/paper/paper-full.min.js'></script>-->
+    <script src='libs/paper/paper.js'></script>
+    <script src='libs/bootstrap-3.3.5-dist/js/bootstrap.js'></script>
+
+    <script src='js/FactoryComponent.js' defer='defer'></script>
+    <script src="js/config.js" defer="defer"></script>
+    <script src='libs/EventDispatcher.js' defer='defer'></script>
+
+    <script type="text/paperscript" canvas="puzzleCanvas" src='js/Puzzle.js' defer='defer'></script>
+    <script src='js/GameEngine.js' defer='defer'></script>
+    <script src='js/TimerComponent.js' defer='defer'></script>
+    <script src="js/RequestManager.js" defer="defer"></script>
+    <script src='js/NavBarButtonsComponent.js' defer='defer'></script>
+    <script src='js/GameFieldComponent.js' defer='defer'></script>
+    <script src='js/LoginFormComponent.js' defer='defer'></script>
+    <script src='js/SingUpFormComponent.js' defer='defer'></script>
+    <script src='js/ImageFileFormComponent.js' defer='defer'></script>
+    <script src='js/MainPageComponent.js' defer='defer'></script>
+    <!--<script type="text/javascript" src="js/ButtonsAndLinksContainerComponent.js" defer="defer"></script>-->
+
+    <!--<script type="text/javascript" src="js/RequestManager.js" defer="defer"></script>-->
+    <script src="js/index.js" defer="defer"></script>
+
+</head>
+<body>
+
+<nav class="navbar puzzle-nav-bar">
+    <div class="container-fluid">
+        <div class="navbar-header puzzle-navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="brand-container">
+                <span class="puzzle-brand-name">PuZZZle Game</span>
+            </div>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+
+            <div class="nav_bar_tabs">
+            </div>
+
+            <div class="navbar-right">
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script type="html/template" id="buttonsContainerTemplate">
+    <button class="btn navbar-right navbar-btn controls"
+            data-bind="
+	        visible: isVisibleLoginButton,
+	        click: onSignInClicked;
+	        ">
+        Sign in
+    </button>
+    <button class="btn navbar-right navbar-btn controls"
+            data-bind="
+	        visible: isVisibleLoginButton,
+	        click: onSignUpClicked;
+	        ">
+        Sign up
+    </button>
+    <button type="button" class="btn btn-success navbar-right navbar-btn"
+            data-bind="
+            visible: isVisibleLogOut,
+            click: onLogoutClicked;
+            ">
+        Sign out
+    </button>
+</script>
+
+<div class="container login-container">
+</div>
+
+<main class="content">
+</main>
+
+<script type="html/template" id="loginFormTemplate">
+    <div class="wrapper" data-bind="visible: isVisibleLoginForm">
+        <section class="login_form">
+            <form class="form-horizontal" name="loginForm" method="post">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text"
+                           class="form-control"
+                           id="InputUsername"
+                           placeholder="Username"
+                           data-bind="value: userName"/>
+                </div>
+                <br/>
+
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password"
+                           class="form-control"
+                           placeholder="Password"
+                           data-bind="value: userPassword"/>
+                </div>
+                <br/>
+                <button type="submit" class="btn btn-puzzle btn-lg btn-block btn-sm"
+                        data-bind="click: submitLoginForm">Sign in
+                </button>
+                <button type="submit" class="btn btn-default btn-lg btn-block btn-sm"
+                        data-bind="click: onCancelClicked">Cancel
+                </button>
+            </form>
+        </section>
+    </div>
+</script>
+
+<script type="html/template" id="signUpFormTemplate">
+    <div class="wrapper" data-bind="visible: isVisibleSignUpForm">
+        <section class="login_form">
+            <form class="form-horizontal" name="loginForm" method="post">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Username"
+                           data-bind="value: userName"/>
+                </div>
+                <br/>
+
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password"
+                           class="form-control"
+                           id="InputPassword"
+                           placeholder="Password"
+                           data-bind="value: userPassword"/>
+                </div>
+                <br/>
+                <button type="submit" class="btn btn-puzzle btn-lg btn-block btn-sm"
+                        data-bind="click: submitSignUpForm">Sign up
+                </button>
+                <button type="submit" class="btn btn-default btn-lg btn-block btn-sm"
+                        data-bind="click: onCancelClicked">Cancel
+                </button>
+            </form>
+        </section>
+    </div>
+</script>
+
+<script type="html/template" id="imageFileFormTemplate">
+    <div class="wrapper" data-bind="visible: isVisibleImageFileForm">
+        <div class="upload-image-file-form">
+            <form class="form-horizontal"
+                  enctype="multipart/form-data"
+                  method="post">
+                <label for="image-file">Your First Name</label>
+                <input type="file"
+                       class="form-file-input"
+                       placeholder="image"
+                       id="image-file"
+                       data-bind="event: {change: function(){uploadImage($element.files[0])}}"
+                />
+                <br/>
+
+                <!--<button type="submit" class="btn btn-puzzle btn-lg btn-block btn-sm"-->
+                <!--data-bind="click: submitImageForm">Add image-->
+                <!--</button>-->
+                <button type="submit" class="btn btn-default btn-lg btn-block btn-sm"
+                        data-bind="click: onCancelClicked">Cancel
+                </button>
+            </form>
+        </div>
+    </div>
+</script>
+
+
+<script type="html/template" id="mainPageTemplate">
+    <div class="container-fluid" data-bind="visible: isVisibleMainPage">
+
+        <div class="players-images-container" data-bind="visible: isVisiblePlayerImages">
+
+            <div class="add-image-button" data-bind="click: addImage">
+                <span>+ Add Image</span>
+            </div>
+
+            <div class="puzzle-image-container" data-bind="foreach: playerPuzzleImages">
+                <img
+                        data-bind="attr: {src:  $data.path_image},
+                        click: function (){$parent.startGame($data)}
+                        ">
+                <span class="glyphicon glyphicon-remove"
+                      data-bind="click: function (){$parent.removeImage($data.path_image)}"
+                ></span>
+            </div>
+        </div>
+
+        <div class="puzzle-image-container" data-bind="foreach: commonPuzzleImages">
+            <img
+                    data-bind="attr:{src:  $data.path_image},
+                         click: function (){$parent.startGame($data)}
+            ">
+        </div>
+
+        <div class="default-images-container"></div>
+    </div>
+</script>
+
+<script type="html/template" id="gameFieldTemplate">
+    <section class="" data-bind="visible: isVisibleGameField">
+        <section class="game-field">
+            <nav class="tools-panel">
+                <div class="controls-container">
+                    <img src="./images/zoomIn.png" class="zoomIn"/>
+                    <img src="./images/zoomOut.png" class="zoomOut"/>
+                    <img src="./images/help.png" class="help"/>
+                </div>
+                <div class="game-timer-container">
+                    <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+                </div>
+            </nav>
+
+            <section class="canvas-box">
+                <canvas id="puzzleCanvas" resize class="canvas"></canvas>
+            </section>
+        </section>
+        <section class="hint-image">
+            <img id="puzzle-active-image" class="puzzle-active-image"
+                 src="#"/>
+        </section>
+        <img id="empty" class="emptyImage" src="./images/empty.png"/>
+    </section>
+</script>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+html, body {
+    background: #d7d7d7;
+    position: relative;
+    cursor: default;
+    height: 100%;
+    width: 100%;
+}
+
+.wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.upload-image-file-form,
+.login_form {
+    padding: 1.5em;
+    border: 1px solid #b2b2b2;
+    border-radius: 3px;
+    background: #ffffff;
+    margin: 0 auto;
+    max-width: 300px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+nav.puzzle-nav-bar {
+    background-color: #5f3096;
+    border-color: #560F96;
+    border-radius: 0;
+}
+
+button.btn-puzzle,
+nav.puzzle-nav-bar button {
+    background-color: #9447ff;
+    border-color: #9156d3;
+    color: #ffffff;
+    font-weight: bolder;
+}
+
+button.btn-puzzle:hover,
+nav.puzzle-nav-bar button:hover {
+    background-color: #c682ff;
+    border-color: #5f3096;
+    color: #ffffff;
+}
+
+nav.puzzle-nav-bar button:focus,
+nav.puzzle-nav-bar button:active:focus,
+nav.puzzle-nav-bar button:active {
+    background-color: #a551ff;
+    border-color: #512196;
+    color: #ffffff;
+}
+
+nav.puzzle-nav-bar button.controls {
+    margin-right: 10px;
+}
+
+.container-fluid div.puzzle-navbar-header {
+    padding: 14px 0 14px 0;
+    vertical-align: middle;
+}
+
+.brand-container .puzzle-brand-name {
+    color: #ffffff;
+    font-weight: bolder;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    position: fixed;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
+    background-color: rgba(6, 5, 6, 0.3);
+    z-index: 2;
+    color: #fff;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.login-container {
+    width: 100%;
+    height: auto;
+}
+
+#login_container input,
+#login_container button {
+    margin-top: 1em;
+}
+
+.players-images-container div.add-image-button {
+    width: 61px;
+    height: 61px;
+    text-align: right;
+    padding: 9px;
+    background: #935FE4;
+    color: #fff;
+    font-weight: bolder;
+}
+
+.players-images-container div.add-image-button:hover {
+    background: #653be4;
+}
+
+.game-field .tools-panel {
+    overflow: hidden;
+    position: relative;
+    background: #ccc;
+    opacity: 0.7;
+    width: 100%;
+}
+
+.game-field {
+    height: 100%;
+    border: 1px solid #5E12DE;
+}
+
+.hint-image,
+.canvas-box {
+    width: 100%;
+}
+
+.canvas-box {
+    height: 100%;
+}
+
+/***/
+.puzzle-image,
+.emptyImage {
+    display: none;
+}
+
+.hint-image {
+    display: block;
+    height: 0;
+}
+
+.canvas-box canvas {
+    border: 1px solid #9798ff;
+    width: 100%;
+}
+
+.tools-panel {
+    border: 1px solid #78e1fa;
+}
+
+.tools-panel img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #2f6fad;
+}
+
+.tools-panel .zoomIn,
+.tools-panel .zoomOut,
+.tools-panel .help {
+    display: inline-block;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.puzzle-image {
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+input.form-file-input {
+    border: none;
+    box-shadow: none;
+}
+
+.gameFieldTemplate {
+    height: 100%;
+}
+
+.controls-container {
+    float: left;
+}
+
+.game-timer-container {
+    float: right;
+    height: 100%;
+    text-align: center;
+}
+
+.game-timer-container span {
+    color: #512196;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.puzzle-image-container img {
+    vertical-align: top;
+    width: 150px;
+}
+
+.puzzle-image-container span.glyphicon {
+    margin-left: -10px;
+    margin-top: 10px;
+}
+
+.puzzle-image-container img {
+    margin: 10px;
+    border: 1px solid #b9babe;
+
+}
+
+.puzzle-image-container img:hover {
+    border: 1px solid #9687be;
+}
