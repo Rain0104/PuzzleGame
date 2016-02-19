@@ -3,6 +3,7 @@
  */
 function NavBarButtonsComponent() {
 
+    this.isVisibleControls = ko.observable(true);
     this.isVisibleLoginButton = ko.observable(true);
     this.isVisibleLogOut = ko.observable(false);
 
@@ -24,6 +25,16 @@ NavBarButtonsComponent.prototype = {
     bindEvents: function () {
         PuzzleGame.EventDispatcher.on('PlayerSignedIn', this.onPlayerSignedIn.bind(this));
         PuzzleGame.EventDispatcher.on('PlayerSignedIOut', this.onPlayerSignedOut.bind(this));
+        PuzzleGame.EventDispatcher.on('StartGame', this.onStartGame.bind(this));
+        PuzzleGame.EventDispatcher.on('FinishGame', this.onStartGame.bind(this));
+    },
+
+    onStartGame: function () {
+        this.isVisibleControls(false);
+    },
+
+    onFinishGame: function () {
+        this.isVisibleControls(true);
     },
 
     onPlayerSignedIn: function () {
@@ -47,6 +58,9 @@ NavBarButtonsComponent.prototype = {
     onLogoutClicked: function () {
         var msg = 'Clicked Sign out button';
         console.log(msg);
+        PuzzleGame.EventDispatcher.trigger('SignOutButtonClicked');
+        this.isVisibleLogOut(false);
+        this.isVisibleLoginButton(true);
     }
 
 };

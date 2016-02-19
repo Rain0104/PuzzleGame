@@ -21,21 +21,17 @@ GameFieldComponent.prototype = {
     },
     bindEvents: function () {
         PuzzleGame.EventDispatcher.on('ShowGameFieldPage', this.onShowGameFieldPage.bind(this));
+        PuzzleGame.EventDispatcher.on('GameCanceled', this.onGameCanceled.bind(this));
     },
 
 // Event Handlers
-//ToDo remove this handler.***
     onShowGameFieldPage: function (data) {
         PuzzleGame.EventDispatcher.trigger('StartGame', data);
         this.isVisibleGameField(true);
     },
 
-    onCloseGameFieldClicked: function (){
+    onGameCanceled: function (){
         this.isVisibleGameField(false);
-    },
-
-    onPuzzleCompleted: function (){
-        PuzzleGame.EventDispatcher.trigger('PuzzleCompleted');
     }
 };
 

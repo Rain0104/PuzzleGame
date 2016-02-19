@@ -31,6 +31,10 @@ MainPageComponent.prototype = {
         PuzzleGame.EventDispatcher.on('PlayerImagesListReceived', this.onPlayerImagesListReceived.bind(this));
         PuzzleGame.EventDispatcher.on('PlayerImageRemoved', this.updatePlayersImagesList.bind(this));
         PuzzleGame.EventDispatcher.on('PlayerSignedIn', this.updatePlayersImagesList.bind(this));
+        PuzzleGame.EventDispatcher.on('SignOutButtonClicked', this.cleanPlayerImagesList.bind(this));
+        PuzzleGame.EventDispatcher.on('ShowMainPage', this.onShowMainPage.bind(this));
+        PuzzleGame.EventDispatcher.on('GameCanceled', this.onShowMainPage.bind(this));
+
     },
 
     getCommonPuzzleImagesList: function () {
@@ -40,6 +44,10 @@ MainPageComponent.prototype = {
 
     addImage: function () {
         PuzzleGame.EventDispatcher.trigger('AddImageFileButtonClicked');
+    },
+
+    cleanPlayerImagesList: function () {
+        this.playerPuzzleImages([]);
     },
 
     removeImage: function (imagePath) {
@@ -54,6 +62,10 @@ MainPageComponent.prototype = {
 // Event Handlers
     updatePlayersImagesList: function () {
         PuzzleGame.RequestManager.getPlayerPuzzleImages();
+    },
+
+    onShowMainPage: function () {
+        this.isVisibleMainPage(true);
     },
 
     onCommonImagesListReceived: function (data) {

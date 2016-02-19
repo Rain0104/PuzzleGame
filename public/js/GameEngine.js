@@ -1,10 +1,10 @@
 /**
  * Created by alyona.bugayeva on 07-Feb-16.
  */
-
 PuzzleGame.GameEngine = (function () {
 
     function GameEngine() {
+        this.activeImage = ko.observable({});
         this.bindEvents();
     }
 
@@ -12,13 +12,15 @@ PuzzleGame.GameEngine = (function () {
 
         bindEvents: function () {
             PuzzleGame.EventDispatcher.on('StartGame', this.startGame.bind(this));
-            PuzzleGame.EventDispatcher.on('ImageCompleted', this.finishGame.bind(this));
+            PuzzleGame.EventDispatcher.on('ImageCompleted', this.onImageCompleted.bind(this));
+            PuzzleGame.EventDispatcher.on('GameCanceled', this.onGameCanceled.bind(this));
         },
 
         startGame: function (data) {
-            var activeImage = data;
+
+            this.activeImage(data);
             var image = document.querySelector("#puzzle-active-image");
-            image.src = activeImage.path_image;
+            image.src = this.activeImage().path_image;
             if (image.width) {
             }
             var imgWidth = Math.floor(image.width / 50) * 50;
@@ -42,7 +44,13 @@ PuzzleGame.GameEngine = (function () {
             PuzzleGame.EventDispatcher.trigger('CreatePuzzles', config);
         },
 
-        finishGame: function () {
+        onGameCanceled: function () {
+            this.activeImage({});
+        },
+
+        onImageCompleted: function () {
+            var playerTime = PuzzleGame.Timer.getTime();
+            var imageName = this.activeImage().name;
             //todo get the time, update leader board for the current image
         }
     };

@@ -8,7 +8,7 @@ var navBarButtonContainer = PuzzleGame.FactoryComponent.createComponent({
 });
 
 var loginFormComponent = PuzzleGame.FactoryComponent.createComponent({
-    container: '.login-container',
+    container: '.popup-container',
     template: {
         id: 'loginFormTemplate'
     },
@@ -17,15 +17,23 @@ var loginFormComponent = PuzzleGame.FactoryComponent.createComponent({
 });
 
 var SignUpFormComponent = PuzzleGame.FactoryComponent.createComponent({
-    container: '.login-container',
+    container: '.popup-container',
     template: {
         id: 'signUpFormTemplate'
     },
     type: 'SignUpFormComponent'
 });
 
+var LeaderBoardComponent = PuzzleGame.FactoryComponent.createComponent({
+    container: '.popup-container',
+    template: {
+        id: 'leaderBoardTemplate'
+    },
+    type: 'LeaderBoardComponent'
+});
+
 var imageFileFormComponent = PuzzleGame.FactoryComponent.createComponent({
-    container: '.login-container',
+    container: '.popup-container',
     template: {
         id: 'imageFileFormTemplate'
     },
@@ -34,7 +42,7 @@ var imageFileFormComponent = PuzzleGame.FactoryComponent.createComponent({
 
 
 var mainPageComponent = PuzzleGame.FactoryComponent.createComponent({
-    container: '.login-container',
+    container: '.content',
     template: {
         id: 'mainPageTemplate'
     },

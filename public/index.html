@@ -28,11 +28,8 @@
     <script src='js/SingUpFormComponent.js' defer='defer'></script>
     <script src='js/ImageFileFormComponent.js' defer='defer'></script>
     <script src='js/MainPageComponent.js' defer='defer'></script>
-    <!--<script type="text/javascript" src="js/ButtonsAndLinksContainerComponent.js" defer="defer"></script>-->
-
-    <!--<script type="text/javascript" src="js/RequestManager.js" defer="defer"></script>-->
+    <script src='js/LeaderBoardComponent.js' defer='defer'></script>
     <script src="js/index.js" defer="defer"></script>
-
 </head>
 <body>
 
@@ -62,38 +59,59 @@
 </nav>
 
 <script type="html/template" id="buttonsContainerTemplate">
-    <button class="btn navbar-right navbar-btn controls"
-            data-bind="
+    <div data-bind="visible: isVisibleControls">
+        <button class="btn navbar-right navbar-btn controls"
+                data-bind="
 	        visible: isVisibleLoginButton,
 	        click: onSignInClicked;
 	        ">
-        Sign in
-    </button>
-    <button class="btn navbar-right navbar-btn controls"
-            data-bind="
+            Sign in
+        </button>
+        <button class="btn navbar-right navbar-btn controls"
+                data-bind="
 	        visible: isVisibleLoginButton,
 	        click: onSignUpClicked;
 	        ">
-        Sign up
-    </button>
-    <button type="button" class="btn btn-success navbar-right navbar-btn"
-            data-bind="
+            Sign up
+        </button>
+        <button type="button" class="btn btn-success navbar-right navbar-btn"
+                data-bind="
             visible: isVisibleLogOut,
             click: onLogoutClicked;
             ">
-        Sign out
-    </button>
+            Sign out
+        </button>
+    </div>
 </script>
 
-<div class="container login-container">
+<div class="container popup-container">
 </div>
 
 <main class="content">
 </main>
 
+<script type="html/template" id="leaderBoardTemplate">
+    <div class="wrapper" data-bind="visible: isVisibleLeaderBoard">
+        <section class="leader-board">
+            <h2 class="header">Congratulations!!!</h2>
+
+            <div data-bind="foreach: leaderBoard">
+                    <span>
+                      <i class="glyphicon glyphicon-star"></i>
+                      <b data-bind="text: time"></b>
+                      <b data-bind="text: playerName"></b>
+                </span>
+            </div>
+            <button class="btn default btn-lg btn-block btn-sm"
+                    data-bind="click: onCloseClicked">Close
+            </button>
+        </section>
+    </div>
+</script>
+
 <script type="html/template" id="loginFormTemplate">
     <div class="wrapper" data-bind="visible: isVisibleLoginForm">
-        <section class="login_form">
+        <section class="login-form">
             <form class="form-horizontal" name="loginForm" method="post">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -126,8 +144,8 @@
 
 <script type="html/template" id="signUpFormTemplate">
     <div class="wrapper" data-bind="visible: isVisibleSignUpForm">
-        <section class="login_form">
-            <form class="form-horizontal" name="loginForm" method="post">
+        <section class="sign-up-form">
+            <form class="form-horizontal" name="signUpForm" method="post">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                     <input type="text"
@@ -159,7 +177,7 @@
 
 <script type="html/template" id="imageFileFormTemplate">
     <div class="wrapper" data-bind="visible: isVisibleImageFileForm">
-        <div class="upload-image-file-form">
+        <section class="upload-image-file-form">
             <form class="form-horizontal"
                   enctype="multipart/form-data"
                   method="post">
@@ -169,7 +187,7 @@
                        placeholder="image"
                        id="image-file"
                        data-bind="event: {change: function(){uploadImage($element.files[0])}}"
-                />
+                        />
                 <br/>
 
                 <!--<button type="submit" class="btn btn-puzzle btn-lg btn-block btn-sm"-->
@@ -179,7 +197,7 @@
                         data-bind="click: onCancelClicked">Cancel
                 </button>
             </form>
-        </div>
+        </section>
     </div>
 </script>
 
@@ -200,7 +218,7 @@
                         ">
                 <span class="glyphicon glyphicon-remove"
                       data-bind="click: function (){$parent.removeImage($data.path_image)}"
-                ></span>
+                        ></span>
             </div>
         </div>
 
@@ -220,6 +238,7 @@
         <section class="game-field">
             <nav class="tools-panel">
                 <div class="controls-container">
+                    <img src="./images/cross.png" class="cancelGame"/>
                     <img src="./images/zoomIn.png" class="zoomIn"/>
                     <img src="./images/zoomOut.png" class="zoomOut"/>
                     <img src="./images/help.png" class="help"/>

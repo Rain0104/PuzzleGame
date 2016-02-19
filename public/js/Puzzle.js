@@ -37,12 +37,21 @@ PuzzleGame.Puzzles = function () {
             view.zoom = puzzle.currentZoom;
             view.currentScroll = new Point(0, 0);
 
+            document.querySelector('.cancelGame').addEventListener("click", function (event) {
+                PuzzleGame.EventDispatcher.trigger('GameCanceled');
+                puzzle.cleanGameField();
+            });
+
             document.querySelector('.zoomIn').addEventListener("click", function (event) {
                 puzzle.zoom(+0.1);
             });
 
             document.querySelector('.zoomOut').addEventListener("click", function (event) {
                 puzzle.zoom(-0.1);
+            });
+
+            document.querySelector('.help').addEventListener("click", function () {
+                //todo show hide image
             });
 
             tool.onMouseDown = function (event) {
@@ -66,10 +75,6 @@ PuzzleGame.Puzzles = function () {
             tool.onMouseDrag = function (event) {
                 puzzle.dragTile(event.delta);
             };
-
-            document.querySelector('.help').addEventListener("mousedown", function () {
-                //todo show hide image
-            });
         },
 
         getRandomTabValue: function () {
@@ -416,11 +421,15 @@ PuzzleGame.Puzzles = function () {
                     if (errors === 0) {
 
                         PuzzleGame.EventDispatcher.trigger('ImageCompleted');
-
-                        alert('!!!');
+                        puzzle.cleanGameField();
                     }
                 }
             }
+        },
+
+        cleanGameField: function () {
+            //todo create the function cleanGameField
+            console.log('Clean canvas!!!');
         },
 
         zoom: function (zoomDelta) {
