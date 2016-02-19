@@ -22,10 +22,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(allowCrossDomain);
 
-app.use('/css', express.static(__dirname + '/public/css'));
-app.use('/js', express.static(__dirname + '/public/js'));
-app.use('/libs', express.static(__dirname + '/public/libs'));
-app.use('/images', express.static(__dirname + '/public/images'));
+app.use('/', express.static(__dirname + '/public'));
+//todo save images in public directory
+//app.use('/css', express.static(__dirname + '/public/css'));
+//app.use('/js', express.static(__dirname + '/public/js'));
+//app.use('/libs', express.static(__dirname + '/public/libs'));
+//app.use('/images', express.static(__dirname + '/public/images'));
 app.use('/commonPuzzleImages', express.static(__dirname + '/resources/commonPuzzleImages'));
 app.use('/images', express.static(__dirname + '/resources/images'));
 
@@ -35,7 +37,7 @@ app.get('/', function (req, res) {
 
 var User = require('./models/schemaUser');
 var Image = require('./models/schemaImage');
-
+var  pathForImages = __dirname + '/resources/images/';
 
 //var newImage = Image({
 //    type: 'common',
@@ -138,11 +140,11 @@ app.post('/api/addImage', upload.single('file'), function (req, res) {
     console.log(req.body.username);
     var player = req.body.username;
     fs.readFile(req.file.path, function (err, data) {
-        var imageName = req.file.originalname;
+        var imageName = req.file.originalname + req.file.size;
         if (!imageName) {
             res.end();
         } else {
-            var newPath = __dirname + "/resources/images/" + imageName;
+            var newPath = pathForImages + imageName;
             fs.writeFile(newPath, data, function (err) {
                 if (err) {
                     res.send({Error: 'oops'});
