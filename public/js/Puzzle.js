@@ -428,8 +428,8 @@ PuzzleGame.Puzzles = function () {
         },
 
         cleanGameField: function () {
-            //todo create the function cleanGameField
-            console.log('Clean canvas!!!');
+            project.activeLayer.removeChildren();
+            project.remove();
         },
 
         zoom: function (zoomDelta) {
