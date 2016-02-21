@@ -37,7 +37,7 @@ app.get('/', function (req, res) {
 
 var User = require('./models/schemaUser');
 var Image = require('./models/schemaImage');
-var  pathForImages = __dirname + '/resources/images/';
+var pathForImages = __dirname + '/resources/images/';
 
 //var newImage = Image({
 //    type: 'common',
@@ -84,10 +84,8 @@ app.post('/api/signIn', function (req, res) {
 });
 
 app.post('/api/signUp', function (req, res) {
-
     var userName = req.body.username;
     var userPass = req.body.password;
-
     User.find({username: userName}, function (err, user) {
         if (err) throw err;
         if (user.length === 0) {
@@ -104,6 +102,39 @@ app.post('/api/signUp', function (req, res) {
         } else {
             res.send({Error: 'Please use other username'});
         }
+    });
+});
+app.post('/api/updateLeaderBoard', function (req, res) {
+    var imageName = req.body.imageName;
+    var username = req.body.username;
+    var time = {
+        hours: req.body.hours,
+        minutes: req.body.minutes,
+        seconds: req.body.seconds
+    };
+    Image.findOne({name: imageName}, function (err, image) {
+        if (err) throw err;
+        if (image === undefined) {
+            console.log('no find', image);
+            res.send({Warning: 'Not image find'});
+
+        } else {
+            var updatedLBoard = image.updateLBoard(username, time);
+            if (updatedLBoard.length !== 0) {
+                image.leader_board = updatedLBoard;
+                image.save(function (err) { });
+            }
+            res.send({Success: 'LeaderBoard updated'});
+        }
+    });
+});
+
+app.get('/api/getLeaderBoard', function(req, res) {
+    var imageName = req.body.imageName;
+
+    Image.findOne({name: imageName}, function (err, image) {
+        if (err) throw err;
+        res.send(image.leader_board);
     });
 });
 
@@ -131,7 +162,7 @@ app.post('/api/removeImage', function (req, res) {
 
     Image.remove({path_image: imagePath}, function (err) {
         if (err) throw err;
-            res.send({Success: 'Image is removed'});
+        res.send({Success: 'Image is removed'});
     });
 });
 

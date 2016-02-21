@@ -1,4 +1,4 @@
-PuzzleGame.Puzzles = function () {
+PuzzleGame.Puzzles = (function () {
 
     function Puzzles() {
         this.bindEvents();
@@ -38,8 +38,9 @@ PuzzleGame.Puzzles = function () {
             view.currentScroll = new Point(0, 0);
 
             document.querySelector('.cancelGame').addEventListener("click", function (event) {
-                PuzzleGame.EventDispatcher.trigger('GameCanceled');
                 puzzle.cleanGameField();
+                PuzzleGame.EventDispatcher.trigger('GameCanceled');
+                debugger;
             });
 
             document.querySelector('.zoomIn').addEventListener("click", function (event) {
@@ -53,7 +54,7 @@ PuzzleGame.Puzzles = function () {
             document.querySelector('.help').addEventListener("click", function () {
                 //todo show hide image
             });
-
+            tool.activate();
             tool.onMouseDown = function (event) {
                 puzzle.pickTile();
             };
@@ -428,8 +429,8 @@ PuzzleGame.Puzzles = function () {
         },
 
         cleanGameField: function () {
+            tool.remove();
             project.activeLayer.removeChildren();
-            project.remove();
         },
 
         zoom: function (zoomDelta) {
@@ -440,4 +441,4 @@ PuzzleGame.Puzzles = function () {
         }
     };
     return new Puzzles();
-};
+})();

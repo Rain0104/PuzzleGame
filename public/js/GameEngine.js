@@ -14,6 +14,7 @@ PuzzleGame.GameEngine = (function () {
             PuzzleGame.EventDispatcher.on('StartGame', this.startGame.bind(this));
             PuzzleGame.EventDispatcher.on('ImageCompleted', this.onImageCompleted.bind(this));
             PuzzleGame.EventDispatcher.on('GameCanceled', this.onGameCanceled.bind(this));
+            PuzzleGame.EventDispatcher.on('LeaderBoardUpdated', this.onLeaderBoardUpdated.bind(this));
         },
 
         startGame: function (data) {
@@ -39,19 +40,30 @@ PuzzleGame.GameEngine = (function () {
                 shadowWidth: 10
 
             });
-            var puzzles = new PuzzleGame.Puzzles();
-            PuzzleGame.EventDispatcher.trigger('StartTimer');
+             PuzzleGame.EventDispatcher.trigger('StartTimer');
             PuzzleGame.EventDispatcher.trigger('CreatePuzzles', config);
         },
 
         onGameCanceled: function () {
+            var playerTime = PuzzleGame.Timer.getTime();
+            PuzzleGame.EventDispatcher.trigger('StopTimer');
+            PuzzleGame.EventDispatcher.trigger('FinishGame');
+            var imageName = this.activeImage().name;
+            console.log('cancel game', playerTime, imageName);
             this.activeImage({});
+        },
+
+        onLeaderBoardUpdated: function () {
+            //todo
+            alert(111);
         },
 
         onImageCompleted: function () {
             var playerTime = PuzzleGame.Timer.getTime();
             var imageName = this.activeImage().name;
-            //todo get the time, update leader board for the current image
+            PuzzleGame.EventDispatcher.trigger('StopTimer');
+            PuzzleGame.EventDispatcher.trigger('FinishGame');
+            PuzzleGame.RequestManager.updateLeaderBoard(playerTime, imageName);
         }
     };
     return new GameEngine();

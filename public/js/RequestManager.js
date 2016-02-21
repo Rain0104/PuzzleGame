@@ -77,7 +77,8 @@ PuzzleGame.RequestManager = (function () {
 
         uploadImage: function (imageFile) {
             var formData = new FormData();
-            formData.append("username", "1");
+            var playerName = this.playerName();
+            formData.append("username", playerName);
             formData.append("file", imageFile);
 
             var url = serverBaseUrl + "addImage";
@@ -88,10 +89,8 @@ PuzzleGame.RequestManager = (function () {
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    //debugger;
                     console.log('image added');
                     PuzzleGame.EventDispatcher.trigger('ImageAdded');
-                    //this.getPlayerImageList(playerName);
                 }.bind(this),
                 error: function (error) {
                     debugger;
@@ -99,8 +98,41 @@ PuzzleGame.RequestManager = (function () {
                 }
             })
         },
+        updateLeaderBoard: function (time, imageName) {
+            console.log('time', time);
+            var playerName;
+            if (this.playerName()){
+                playerName = this.playerName()
+            }else {
+                playerName = 'anonymous';
+            }
+            var url = serverBaseUrl + "updateLeaderBoard";
+            var body = {
+                imageName: imageName,
+                username: playerName,
+                hours: time.hours,
+                minutes: time.minutes,
+                seconds: time.seconds
+            };
+            //console.log('req ma', body);
 
-        removePlayerPuzzleImages: function (imagePath){
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: body,
+                success: function (data) {
+                    alert(data);
+                    PuzzleGame.EventDispatcher.trigger('LeaderBoardUpdated');
+                }.bind(this),
+                error: function (error) {
+                    alert(error);
+
+                    //console.log(error);
+                }
+            });
+        },
+
+        removePlayerPuzzleImages: function (imagePath) {
             var url = serverBaseUrl + "removeImage";
             var body = {
                 imagePath: imagePath
@@ -110,7 +142,6 @@ PuzzleGame.RequestManager = (function () {
                 url: url,
                 data: body,
                 success: function (data) {
-                    //var commonImagesList = data;
                     PuzzleGame.EventDispatcher.trigger('PlayerImageRemoved');
                 }.bind(this),
                 error: function (error) {
@@ -144,7 +175,7 @@ PuzzleGame.RequestManager = (function () {
                 type: 'GET',
                 url: url,
                 success: function (data) {
-                   playerImagesList = data;
+                    playerImagesList = data;
                     PuzzleGame.EventDispatcher.trigger('PlayerImagesListReceived', playerImagesList);
                 }.bind(this),
                 error: function (error) {

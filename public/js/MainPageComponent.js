@@ -31,7 +31,7 @@ MainPageComponent.prototype = {
         PuzzleGame.EventDispatcher.on('PlayerImagesListReceived', this.onPlayerImagesListReceived.bind(this));
         PuzzleGame.EventDispatcher.on('PlayerImageRemoved', this.updatePlayersImagesList.bind(this));
         PuzzleGame.EventDispatcher.on('PlayerSignedIn', this.updatePlayersImagesList.bind(this));
-        PuzzleGame.EventDispatcher.on('SignOutButtonClicked', this.cleanPlayerImagesList.bind(this));
+        PuzzleGame.EventDispatcher.on('SignOutButtonClicked', this.onSignOutButtonClicked.bind(this));
         PuzzleGame.EventDispatcher.on('ShowMainPage', this.onShowMainPage.bind(this));
         PuzzleGame.EventDispatcher.on('GameCanceled', this.onShowMainPage.bind(this));
 
@@ -46,7 +46,8 @@ MainPageComponent.prototype = {
         PuzzleGame.EventDispatcher.trigger('AddImageFileButtonClicked');
     },
 
-    cleanPlayerImagesList: function () {
+    onSignOutButtonClicked: function () {
+        this.isVisiblePlayerImages(false);
         this.playerPuzzleImages([]);
     },
 

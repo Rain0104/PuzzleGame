@@ -1,26 +1,3 @@
-//var startTimer = function () {
-//    var minutesLabel = document.getElementById("minutes");
-//    var secondsLabel = document.getElementById("seconds");
-//    var totalSeconds = 0;
-//    setInterval(setTime, 1000);
-//
-//    function setTime() {
-//        ++totalSeconds;
-//        secondsLabel.innerHTML = pad(totalSeconds % 60);
-//        minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-//    }
-//
-//    function pad(val) {
-//        var valString = val + "";
-//        if (valString.length < 2) {
-//            return "0" + valString;
-//        }
-//        else {
-//            return valString;
-//        }
-//    }
-//};
-
 PuzzleGame.Timer = (function () {
 
     function Timer() {
@@ -37,6 +14,7 @@ PuzzleGame.Timer = (function () {
 
         bindEvents: function () {
             PuzzleGame.EventDispatcher.on('StartTimer', this.startTimer.bind(this));
+            PuzzleGame.EventDispatcher.on('StopTimer', this.stopTimer.bind(this));
         },
 
         startTimer: function () {
@@ -51,7 +29,7 @@ PuzzleGame.Timer = (function () {
         },
 
         setTime: function () {
-            ++this.totalSeconds;
+            this.totalSeconds++;
             var minutesLabel = document.getElementById("minutes");
             var secondsLabel = document.getElementById("seconds");
             var hoursLabel = document.getElementById("hours");
