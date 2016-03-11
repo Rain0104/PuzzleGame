@@ -3,7 +3,7 @@
  */
 function MainPageComponent() {
 
-    //this.playerIsLoggedIn = ko.observable(true);
+    this.isVisibleMessage = ko.observable(false);
     this.isVisibleMainPage = ko.observable(true);
     this.isVisiblePlayerImages = ko.observable(false);
     this.playerPuzzleImages = ko.observableArray([]);
@@ -33,8 +33,7 @@ MainPageComponent.prototype = {
         PuzzleGame.EventDispatcher.on('PlayerSignedIn', this.updatePlayersImagesList.bind(this));
         PuzzleGame.EventDispatcher.on('SignOutButtonClicked', this.onSignOutButtonClicked.bind(this));
         PuzzleGame.EventDispatcher.on('ShowMainPage', this.onShowMainPage.bind(this));
-        PuzzleGame.EventDispatcher.on('GameCanceled', this.onShowMainPage.bind(this));
-
+        PuzzleGame.EventDispatcher.on('FinishGame', this.onShowMainPage.bind(this));
     },
 
     getCommonPuzzleImagesList: function () {

@@ -26,7 +26,7 @@ NavBarButtonsComponent.prototype = {
         PuzzleGame.EventDispatcher.on('PlayerSignedIn', this.onPlayerSignedIn.bind(this));
         PuzzleGame.EventDispatcher.on('PlayerSignedIOut', this.onPlayerSignedOut.bind(this));
         PuzzleGame.EventDispatcher.on('StartGame', this.onStartGame.bind(this));
-        PuzzleGame.EventDispatcher.on('onFinishGame', this.onFinishGame.bind(this));
+        PuzzleGame.EventDispatcher.on('FinishGame', this.onFinishGame.bind(this));
     },
 
     onStartGame: function () {

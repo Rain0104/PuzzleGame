@@ -18,12 +18,9 @@ PuzzleGame.GameEngine = (function () {
         },
 
         startGame: function (data) {
-
             this.activeImage(data);
             var image = document.querySelector("#puzzle-active-image");
             image.src = this.activeImage().path_image;
-            if (image.width) {
-            }
             var imgWidth = Math.floor(image.width / 50) * 50;
             var imgHeight = Math.floor(image.height / 50) * 50;
             image.width = imgWidth;
@@ -40,7 +37,7 @@ PuzzleGame.GameEngine = (function () {
                 shadowWidth: 10
 
             });
-             PuzzleGame.EventDispatcher.trigger('StartTimer');
+            PuzzleGame.EventDispatcher.trigger('StartTimer');
             PuzzleGame.EventDispatcher.trigger('CreatePuzzles', config);
         },
 
