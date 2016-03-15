@@ -25,15 +25,23 @@ LeaderBoardComponent.prototype = {
     },
 
     onLeaderBoardReceived: function (data) {
-        this.leaderBoard(data);
+        var leaderBoard = [];
+        for (var i = 0; i < data.length; i++) {
+            var time = data[i].time.hours + ':' + data[i].time.minutes + ':' + data[i].time.seconds;
+            var leaderBordLine = {
+                playerName: data[i].playerName,
+                time: time
+            };
+            leaderBoard.push(leaderBordLine);
+        }
+        this.leaderBoard(leaderBoard);
         this.isVisibleLeaderBoard(true);
-     },
+    },
 
     onCloseClicked: function () {
-        this.leaderBoard = ko.observable([]);
+        this.leaderBoard([]);
         this.isVisibleLeaderBoard(false);
         PuzzleGame.EventDispatcher.trigger('ShowMainPage');
-
     }
 };
 

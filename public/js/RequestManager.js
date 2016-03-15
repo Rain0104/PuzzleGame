@@ -89,21 +89,19 @@ PuzzleGame.RequestManager = (function () {
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    console.log('image added');
                     PuzzleGame.EventDispatcher.trigger('ImageAdded');
                 }.bind(this),
                 error: function (error) {
-                    debugger;
                     console.log(error);
                 }
             })
         },
+
         updateLeaderBoard: function (time, imageName) {
-            console.log('time', time);
             var playerName;
-            if (this.playerName()){
+            if (this.playerName()) {
                 playerName = this.playerName()
-            }else {
+            } else {
                 playerName = 'anonymous';
             }
             var url = serverBaseUrl + "updateLeaderBoard";
@@ -114,15 +112,30 @@ PuzzleGame.RequestManager = (function () {
                 minutes: time.minutes,
                 seconds: time.seconds
             };
-            //console.log('req ma', body);
 
             $.ajax({
                 type: 'POST',
                 url: url,
                 data: body,
                 success: function (data) {
-                    alert(data);
-                    PuzzleGame.EventDispatcher.trigger('LeaderBoardUpdated');
+                    PuzzleGame.EventDispatcher.trigger('LeaderBoardUpdated', data);
+                }.bind(this),
+                error: function (error) {
+                    alert(error);
+
+                    //console.log(error);
+                }
+            });
+        },
+
+        getLeaderBoard: function (imageName) {
+            var url = serverBaseUrl + "getLeaderBoard/" + imageName;
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    PuzzleGame.EventDispatcher.trigger('LeaderBoardReceived', data);
                 }.bind(this),
                 error: function (error) {
                     alert(error);

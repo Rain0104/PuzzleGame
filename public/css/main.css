@@ -28,9 +28,8 @@ html, body {
     transform: translate(-50%, -50%);
 }
 
-
 .leader-board .header {
- color: #6417ad;
+    color: #6417ad;
 }
 
 nav.puzzle-nav-bar {
@@ -42,6 +41,7 @@ nav.puzzle-nav-bar {
 nav.puzzle-nav-bar div.container-fluid {
     padding: 0;
 }
+
 button.btn-puzzle,
 nav.puzzle-nav-bar button {
     background-color: #9447ff;
@@ -165,7 +165,7 @@ nav.puzzle-nav-bar button.controls {
 }
 
 /*.tools-panel {*/
-    /*border: 1px solid #78e1fa;*/
+/*border: 1px solid #78e1fa;*/
 /*}*/
 
 .tools-panel img {
@@ -242,4 +242,17 @@ input.form-file-input {
 
 .puzzle-image-container img:hover {
     border: 1px solid #9687be;
+}
+
+.leader-board {
+    width: 100%;
+    text-align: center;
+}
+
+.leader-board-line {
+    color: #48107c;
+}
+
+.leader-board-line .glyphicon-star {
+    color: #c0b755;
 }

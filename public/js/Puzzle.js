@@ -422,7 +422,7 @@ PuzzleGame.Puzzles = (function () {
                     if (errors === 0) {
 
                         PuzzleGame.EventDispatcher.trigger('ImageCompleted');
-                        puzzle.cleanGameField();
+                        this.cleanGameField();
                     }
                 }
             }

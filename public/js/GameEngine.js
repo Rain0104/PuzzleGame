@@ -42,17 +42,15 @@ PuzzleGame.GameEngine = (function () {
         },
 
         onGameCanceled: function () {
-            var playerTime = PuzzleGame.Timer.getTime();
             PuzzleGame.EventDispatcher.trigger('StopTimer');
             PuzzleGame.EventDispatcher.trigger('FinishGame');
-            var imageName = this.activeImage().name;
-            console.log('cancel game', playerTime, imageName);
             this.activeImage({});
         },
 
         onLeaderBoardUpdated: function () {
-            //todo
-            alert(111);
+            var imageName = this.activeImage().name;
+            PuzzleGame.RequestManager.getLeaderBoard(imageName);
+            this.activeImage({});
         },
 
         onImageCompleted: function () {

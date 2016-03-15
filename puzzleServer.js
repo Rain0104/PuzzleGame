@@ -129,9 +129,8 @@ app.post('/api/updateLeaderBoard', function (req, res) {
     });
 });
 
-app.get('/api/getLeaderBoard', function(req, res) {
-    var imageName = req.body.imageName;
-
+app.get('/api/getLeaderBoard/:name', function(req, res) {
+    var imageName =req.params.name;
     Image.findOne({name: imageName}, function (err, image) {
         if (err) throw err;
         res.send(image.leader_board);

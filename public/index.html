@@ -96,11 +96,13 @@
             <h2 class="header">Congratulations!!!</h2>
 
             <div data-bind="foreach: leaderBoard">
-                    <span>
-                      <i class="glyphicon glyphicon-star"></i>
-                      <b data-bind="text: time"></b>
-                      <b data-bind="text: playerName"></b>
+                <p>
+                <span class="leader-board-line">
+                  <i class="glyphicon glyphicon-star"></i>
+                  <b data-bind="text: 'Time: ' + time"></b>
+                  <b data-bind="text: 'Name: ' + playerName"></b>
                 </span>
+                </p>
             </div>
             <button class="btn default btn-lg btn-block btn-sm"
                     data-bind="click: onCloseClicked">Close

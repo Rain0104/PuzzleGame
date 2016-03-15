@@ -21,7 +21,7 @@ GameFieldComponent.prototype = {
     },
     bindEvents: function () {
         PuzzleGame.EventDispatcher.on('ShowGameFieldPage', this.onShowGameFieldPage.bind(this));
-        PuzzleGame.EventDispatcher.on('GameCanceled', this.onGameCanceled.bind(this));
+        PuzzleGame.EventDispatcher.on('FinishGame', this.onFinishGame.bind(this));
     },
 
 // Event Handlers
@@ -30,7 +30,7 @@ GameFieldComponent.prototype = {
         this.isVisibleGameField(true);
     },
 
-    onGameCanceled: function (){
+    onFinishGame: function (){
         this.isVisibleGameField(false);
     }
 };
