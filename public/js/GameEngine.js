@@ -26,7 +26,7 @@ PuzzleGame.GameEngine = (function () {
             image.width = imgWidth;
             image.height = imgHeight;
 
-            var config = ({
+            var config = {
                 zoomScaleOnDrag: 1.2,
                 imgName: 'puzzle-active-image',
                 tileWidth: 50,
@@ -35,8 +35,7 @@ PuzzleGame.GameEngine = (function () {
                 imgWidth: imgWidth,
                 imgHeight: imgHeight,
                 shadowWidth: 10
-
-            });
+            };
             PuzzleGame.EventDispatcher.trigger('StartTimer');
             PuzzleGame.EventDispatcher.trigger('CreatePuzzles', config);
         },

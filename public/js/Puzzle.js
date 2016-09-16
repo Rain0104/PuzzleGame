@@ -11,7 +11,6 @@ PuzzleGame.Puzzles = (function () {
         },
 
         createPuzzles: function (config) {
-            var puzzle = this;
             this.currentZoom = 0.7;
             this.zoomScaleOnDrag = config.zoomScaleOnDrag;
             this.imgName = config.imgName;
@@ -40,7 +39,6 @@ PuzzleGame.Puzzles = (function () {
             document.querySelector('.cancelGame').addEventListener("click", function (event) {
                 puzzle.cleanGameField();
                 PuzzleGame.EventDispatcher.trigger('GameCanceled');
-                debugger;
             });
 
             document.querySelector('.zoomIn').addEventListener("click", function (event) {
@@ -52,8 +50,10 @@ PuzzleGame.Puzzles = (function () {
             });
 
             document.querySelector('.help').addEventListener("click", function () {
-                //todo show hide image
-            });
+                PuzzleGame.EventDispatcher.trigger('ShowHintClicked');
+                /*todo handler for ShowHintClicked event and template for hint*/
+            }.bind(this));
+
             tool.activate();
             tool.onMouseDown = function (event) {
                 puzzle.pickTile();
