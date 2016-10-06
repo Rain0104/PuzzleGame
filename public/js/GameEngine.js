@@ -55,6 +55,7 @@ PuzzleGame.GameEngine = (function () {
         onImageCompleted: function () {
             var playerTime = PuzzleGame.Timer.getTime();
             var imageName = this.activeImage().name;
+            PuzzleGame.EventDispatcher.trigger('ImageCompleted', playerTime);
             PuzzleGame.EventDispatcher.trigger('StopTimer');
             PuzzleGame.EventDispatcher.trigger('FinishGame');
             PuzzleGame.RequestManager.updateLeaderBoard(playerTime, imageName);

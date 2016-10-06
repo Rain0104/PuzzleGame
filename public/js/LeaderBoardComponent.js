@@ -4,8 +4,10 @@
 function LeaderBoardComponent() {
     this.isVisibleLeaderBoard = ko.observable(false);
     this.leaderBoard = ko.observable([]);
+    this.playerTime = ko.observable({});
 
     this.bindEvents();
+    //todo show players time
 }
 
 LeaderBoardComponent.prototype = {
@@ -22,6 +24,7 @@ LeaderBoardComponent.prototype = {
 
     bindEvents: function () {
         PuzzleGame.EventDispatcher.on('LeaderBoardReceived', this.onLeaderBoardReceived.bind(this));
+        PuzzleGame.EventDispatcher.on('ImageCompleted', this.onImageCompleted.bind(this));
     },
 
     onLeaderBoardReceived: function (data) {
@@ -36,6 +39,10 @@ LeaderBoardComponent.prototype = {
         }
         this.leaderBoard(leaderBoard);
         this.isVisibleLeaderBoard(true);
+    },
+
+    onImageCompleted: function(){
+        //    todo add image finished event handler *ImageCompleted*
     },
 
     onCloseClicked: function () {
