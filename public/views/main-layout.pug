@@ -1,6 +1,8 @@
 doctype html
 html
-  head lang="en"
-    title = title
+  include includes/head.pug
   body
-    h1 = message
+    include includes/nav-bar.pug
+    include includes/buttons-container.pug
+    h1= message
+

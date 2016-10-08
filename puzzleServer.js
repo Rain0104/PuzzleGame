@@ -35,7 +35,7 @@ app.set('view engine', 'pug');
 
 //
 app.get('/pug', function (req, res) {
-    res.render(__dirname + '/public/views/main-layout.pug', {title: 'Puzzle Game', message: 'Hello there!'});
+    res.render(__dirname + '/public/views/main-layout.pug', {appTitle: 'Puzzle Game', message: 'Hello there!'});
 });
 //
 
