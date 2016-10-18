@@ -1,0 +1,25 @@
+script(type='html/template' id='mainPageTemplate')
+  .container-fluid(
+    data-bind='visible: isVisibleMainPage'
+  )
+    .players-images-container(
+      data-bind='visible: isVisiblePlayerImages'
+    )
+    button.add-image-button(
+      data-bind='click: addImage'
+    )  span + Add Image
+    .puzzle-image-container(
+      data-bind='foreach: playerPuzzleImages')
+        img(
+          data-bind='attr: {src:  $data.path_image}, click: function (){$parent.startGame($data)}'
+        )
+        span.glyphicon.glyphicon-remove(
+          data-bind='click: function (){$parent.removeImage($data.path_image)}'
+        )
+    .puzzle-image-container(
+      data-bind='foreach: commonPuzzleImages'
+    )
+      img(
+        data-bind='attr:{src:  $data.path_image}, click: function (){$parent.startGame($data)}'
+      )
+    .default-images-container

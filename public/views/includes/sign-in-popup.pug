@@ -1,0 +1,28 @@
+script(type='html/template' id='loginFormTemplate')
+  .wrapper(
+    data-bind='visible: isVisibleLoginForm'
+  )
+    section.login-form
+      form.form-horizontal(
+        name='loginForm' method='post'
+      )
+        .input-group
+          span.input-group-addon
+            i.glyphicon.glyphicon-user
+          input.form-control(
+            type='text' id='InputUsername' placeholder='Username' data-bind='value: userName'
+          )
+        br
+        .input-group
+          span.input-group-addon
+            i.glyphicon.glyphicon-lock
+          input.form-control(
+            type='password' placeholder='Password' data-bind='value: userPassword'
+          )
+        br
+        button.btn.btn-puzzle.btn-block.btn-sm(
+          type='submit' data-bind='click: submitLoginForm'
+        )  SignIn
+        button.btn.btn-default.btn-block.btn-sm(
+          type='submit' data-bind='click: onCancelClicked'
+        )  Cancel

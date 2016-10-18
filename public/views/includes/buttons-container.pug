@@ -2,10 +2,10 @@ script(type='html/template' id='buttonsContainerTemplate')
   div(data-bind='visible: isVisibleControls')
     button.btn.navbar-right.navbar-btn.controls(
       data-bind='visible: isVisibleLoginButton, click: onSignInClicked;'
-    )  signIn
+    ) signIn
     button.btn.navbar-right.navbar-btn.controls(
       data-bind='visible: isVisibleLoginButton, click: onSignUpClicked;'
-	)  signUp
+	) signUp
     button.btn.btn-success.navbar-right.navbar-btn(
       data-bind='visible: isVisibleLogOut, click: onLogoutClicked;'
-    )  signOut
+    ) signOut
