@@ -46,24 +46,33 @@ app.get('/', function (req, res) {
 var User = require('./models/schemaUser');
 var Image = require('./models/schemaImage');
 var pathForImages = __dirname + '/resources/images/';
+var pathForCommonImages = '/resources/commonPuzzleImages/';
 
-//var newImage = Image({
-//    type: 'common',
-//    name: '3c6cf4f98699ccbd8d917231e47584e5',
-//    path_image: './commonPuzzleImages/3c6cf4f98699ccbd8d917231e47584e5.jpg',
-//    leader_board: [
-//       {playerName: 'null', time: null},
-//       {playerName: 'null', time: null},
-//       {playerName: 'null', time: null}
-//    ]
-//});
-//
-//newImage.save(function (err) {
-//    if (err) throw err;
-//    console.log('Image was created!');
-//    //res.statusCode = 200;
-//    //res.send({success: 'New Image was added!'});
-//});
+
+Image.find().remove({type: 'common'}).exec();
+
+fs.readdir(__dirname + '/public/' + pathForCommonImages, function (err, files) {
+    if (err) throw err;
+    var len = files.length;
+    for (var i = 0; i < len; i++) {
+        var image = files[i];
+        var imgName = image.split('.')[0];
+        var newImage = Image({
+            type: 'common',
+            name: imgName,
+            path_image: pathForCommonImages + image,
+            leader_board: [
+                {playerName: 'null', time: null},
+                {playerName: 'null', time: null},
+                {playerName: 'null', time: null}
+            ]
+        });
+
+        newImage.save(function (err) {
+            if (err) throw err;
+        });
+    }
+});
 
 
 app.get('/api/commonImages', function (reg, res) {
