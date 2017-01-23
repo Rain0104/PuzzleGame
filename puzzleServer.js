@@ -3,7 +3,7 @@
  */
 var express = require('express');
 var fs = require('fs');
-var pug = require('pug');
+//var pug = require('pug');
 var multer = require('multer');
 var config = require('./config');
 var mongoose = require('mongoose');
@@ -31,12 +31,12 @@ app.use('/', express.static(__dirname + '/public'));
 app.use('/commonPuzzleImages', express.static(__dirname + '/resources/commonPuzzleImages'));
 app.use('/images', express.static(__dirname + '/resources/images'));
 
-app.set('view engine', 'pug');
+//app.set('view engine', 'pug');
 
 //
-app.get('/pug', function (req, res) {
-    res.render(__dirname + '/public/views/main-layout.pug', {appTitle: 'Puzzle Game', message: 'Hello there!'});
-});
+//app.get('/pug', function (req, res) {
+//    res.render(__dirname + '/public/views/main-layout.pug', {appTitle: 'Puzzle Game', message: 'Hello there!'});
+//});
 //
 
 app.get('/', function (req, res) {
@@ -73,7 +73,6 @@ fs.readdir(__dirname + '/public/' + pathForCommonImages, function (err, files) {
         });
     }
 });
-
 
 app.get('/api/commonImages', function (reg, res) {
     Image.find({type: 'common'}, function (err, image) {
